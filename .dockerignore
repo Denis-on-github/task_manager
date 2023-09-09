@@ -1,0 +1,11 @@
+Dockerfile
+.git
+__pycache__
+*.jpg
+*.jpeg
+*.png
+*.log
+.env
+.idea
+venv
+tests
