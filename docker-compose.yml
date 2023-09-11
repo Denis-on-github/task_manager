@@ -14,10 +14,15 @@ services:
     environment: &api-environment
       DJANGO_ENV: dev
       DJANGO_SECRET_KEY: dev
+      DATABASE_NAME: admin
+      DATABASE_USER: admin
+      DATABASE_PASSWORD: admin
+      DATABASE_HOST: task_manager_db
+      DATABASE_PORT: 5432
     command: python manage.py runserver 0.0.0.0:8000
 
   task_manager_db:
-    image: postgres:11.4
+    image: postgres:15.4
     ports:
       - 5432:5432
     environment:
