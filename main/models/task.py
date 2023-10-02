@@ -33,3 +33,6 @@ class Task(models.Model):
         User, on_delete=models.CASCADE, related_name="executed_tasks"
     )
     tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.title
