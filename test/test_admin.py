@@ -1,5 +1,5 @@
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
 from typing import Type, Container
 
@@ -44,10 +44,11 @@ class TestAdmin(APITestCase):
         self.assert_forms(Tag, tag.id)
 
     def test_task(self) -> None:
+        current_date = datetime.now().replace(tzinfo=timezone.utc)
         task = Task.objects.create(
             title='Test title',
             description='Test description',
-            due_date=datetime.now().date() + timedelta(days=3),
+            due_date=current_date + timedelta(days=3),
             priority=1,
             author=self.admin,
             executor=self.admin,
