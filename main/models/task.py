@@ -21,11 +21,11 @@ class Task(models.Model):
     description = models.TextField()
     created_date = models.DateField(auto_now_add=True)
     updated_date = models.DateField(auto_now=True)
-    due_date = models.DateTimeField()
+    due_date = models.DateTimeField(null=True)
     status = models.CharField(
         max_length=20, choices=TaskStatus.choices, default=TaskStatus.NEW_TASK
     )
-    priority = models.IntegerField()
+    priority = models.IntegerField(null=True)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="authored_tasks"
     )
