@@ -6,13 +6,21 @@ from main.models import User, Tag, Task
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone')
+        fields = (
+            "id",
+            "username",
+            "first_name",
+            "last_name",
+            "email",
+            "date_of_birth",
+            "phone",
+        )
 
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tag
-        fields = ('id', 'title')
+        fields = ("id", "title")
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -22,5 +30,16 @@ class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Task
-        fields = ('id', 'title', 'description', 'created_date', 'updated_date', 'due_date',
-                  'status', 'priority', 'author', 'executor', 'tags')
+        fields = (
+            "id",
+            "title",
+            "description",
+            "created_date",
+            "updated_date",
+            "due_date",
+            "status",
+            "priority",
+            "author",
+            "executor",
+            "tags",
+        )
