@@ -4,9 +4,6 @@ from main.models import User
 from main.models.tag import Tag
 
 
-# In accordance with the assignment, the generated code needs to be commented
-# FIXME: delete comments
-# TODO: add admin settings for this models
 class Task(models.Model):
     class TaskStatus(models.TextChoices):
         NEW_TASK = "new task"
