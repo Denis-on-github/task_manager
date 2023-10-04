@@ -10,7 +10,7 @@ class UserFilter(django_filters.FilterSet):
 
     class Meta:
         model = User
-        fields = ('name',)
+        fields = ("name",)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -25,14 +25,26 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class TaskFilter(django_filters.FilterSet):
-    status = django_filters.CharFilter(field_name='status')
-    tags = django_filters.ModelMultipleChoiceFilter(field_name='tags__id', to_field_name='id', queryset=Tag.objects.all(), model=Tag)
-    executor = django_filters.ModelChoiceFilter(field_name='executor__id', to_field_name='id', queryset=User.objects.all(), model=User)
-    author = django_filters.ModelChoiceFilter(field_name='author__id', to_field_name='id', queryset=User.objects.all(), model=User)
+    status = django_filters.CharFilter(field_name="status")
+    tags = django_filters.ModelMultipleChoiceFilter(
+        field_name="tags__id", to_field_name="id", queryset=Tag.objects.all(), model=Tag
+    )
+    executor = django_filters.ModelChoiceFilter(
+        field_name="executor__id",
+        to_field_name="id",
+        queryset=User.objects.all(),
+        model=User,
+    )
+    author = django_filters.ModelChoiceFilter(
+        field_name="author__id",
+        to_field_name="id",
+        queryset=User.objects.all(),
+        model=User,
+    )
 
     class Meta:
         model = Task
-        fields = ('status', 'tags', 'executor', 'author')
+        fields = ("status", "tags", "executor", "author")
 
 
 class TaskViewSet(viewsets.ModelViewSet):
