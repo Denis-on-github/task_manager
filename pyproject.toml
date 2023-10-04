@@ -33,6 +33,7 @@ python = "^3.9"
 django = "^4.2.5"
 psycopg2-binary = "^2.9.7"
 djangorestframework = "^3.14.0"
+django-filter = "^23.3"
 
 [tool.poetry.dev-dependencies]
 
