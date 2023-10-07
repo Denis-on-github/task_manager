@@ -14,3 +14,6 @@ class User(AbstractUser):
         max_length=255, choices=Roles.choices, default=Roles.DEVELOPER
     )
     email = models.EmailField(unique=True)
+
+    def __str__(self):
+        return self.last_name
