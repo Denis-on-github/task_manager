@@ -34,10 +34,6 @@ class TaskFactory(Factory):
 
 
 class TestPermissions(APITestCase):
-    def setUp(self):
-        self.admin = UserFactory(is_staff=True)
-        print(f"\n=== Admin created: {self.admin} ===")
-
     @pytest.mark.django_db
     def test_user_cannot_delete_task(self):
         tag = TagFactory.create()
@@ -55,17 +51,29 @@ class TestPermissions(APITestCase):
 
         self.client.force_login(user)
 
-        response = self.client.delete(reverse("tasks-detail", args=[task.id]))
+        response = self.client.delete(f"/api/tasks/{task.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-        response = self.client.delete(reverse("tags-detail", args=[tag.id]))
-        assert response.status_code == status.HTTP_403_FORBIDDEN
+    @pytest.mark.django_db
+    def test_user_cannot_delete_tag(self):
+        tag = TagFactory.create()
+        tag.save()
+        print(f"\n=== Tag created: {tag} ===")
+
+        user = UserFactory()
+        user.save()
+        print(f"\n=== User created: {user} ===")
+
+        self.client.force_login(user)
+
+        response = self.client.delete(f"/api/tags/{tag.id}/")
+        assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
 
     @pytest.mark.django_db
     def test_admin_can_delete_task(self):
         tag = TagFactory.create()
         tag.save()
-        print(f"\n=== Tag for task created: {tag.id} ===")
+        print(f"\n=== Tag for task created: {tag} ===")
 
         admin = UserFactory(is_staff=True)
         admin.save()
@@ -78,20 +86,20 @@ class TestPermissions(APITestCase):
 
         self.client.force_login(admin)
 
-        response = self.client.delete(reverse("tasks-detail", args=[task.id]))
+        response = self.client.delete(f"/api/tasks/{task.id}/")
         assert response.status_code == status.HTTP_204_NO_CONTENT
 
-        @pytest.mark.django_db
-        def test_admin_can_delete_task(self):
-            tag = TagFactory.create()
-            tag.save()
-            print(f"\n=== Tag created: {tag.id} ===")
+    @pytest.mark.django_db
+    def test_admin_can_delete_tag(self):
+        tag = TagFactory.create()
+        tag.save()
+        print(f"\n=== Tag created: {tag} ===")
 
-            admin = UserFactory(is_staff=True)
-            admin.save()
-            print(f"\n=== Admin for task created: {admin} ===")
+        admin = UserFactory(is_staff=True)
+        admin.save()
+        print(f"\n=== Admin for task created: {admin} ===")
 
-            self.client.force_login(admin)
+        self.client.force_login(admin)
 
-            response = self.client.delete(reverse("tags-detail", args=[tag.id]))
-            assert response.status_code == status.HTTP_204_NO_CONTENT
+        response = self.client.delete(f"/api/tags/{tag.id}/")
+        assert response.status_code == status.HTTP_204_NO_CONTENT
