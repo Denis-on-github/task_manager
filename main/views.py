@@ -1,5 +1,6 @@
 import django_filters
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
 from main.models import User, Tag, Task
 from main.permissions import IsStaffOrReadOnly
@@ -23,6 +24,7 @@ class UserViewSet(viewsets.ModelViewSet):
 class TagViewSet(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+    permission_classes = [IsAuthenticated, IsStaffOrReadOnly]
 
 
 class TaskFilter(django_filters.FilterSet):
@@ -52,4 +54,4 @@ class TaskViewSet(viewsets.ModelViewSet):
     )
     serializer_class = TaskSerializer
     filterset_class = TaskFilter
-    permission_classes = [IsStaffOrReadOnly]
+    permission_classes = [IsAuthenticated, IsStaffOrReadOnly]
