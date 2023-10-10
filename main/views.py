@@ -33,14 +33,10 @@ class TaskFilter(django_filters.FilterSet):
         field_name="tags__id", to_field_name="id", queryset=Tag.objects.all()
     )
     executor = django_filters.ModelChoiceFilter(
-        field_name="executor__id",
-        to_field_name="id",
-        queryset=User.objects.all()
+        field_name="executor__id", to_field_name="id", queryset=User.objects.all()
     )
     author = django_filters.ModelChoiceFilter(
-        field_name="author__id",
-        to_field_name="id",
-        queryset=User.objects.all()
+        field_name="author__id", to_field_name="id", queryset=User.objects.all()
     )
 
     class Meta:

@@ -45,8 +45,8 @@ INSTALLED_APPS = [
     "main",
     "rest_framework",
     "django_filters",
-    'rest_access_policy',
-    'drf_yasg'
+    "rest_access_policy",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -65,8 +65,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": [
-        'main.permissions.IsStaffOrReadOnly',
-        "rest_framework.permissions.IsAuthenticated"
+        "main.permissions.IsStaffOrReadOnly",
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",

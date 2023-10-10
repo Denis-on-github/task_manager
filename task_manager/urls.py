@@ -28,21 +28,27 @@ from task_manager import settings
 schema_view = get_schema_view(
     openapi.Info(
         title="Task Manager",
-        default_version='v1',
+        default_version="v1",
         description="Task Manager, something very similar to Jira and other tools.",
     ),
     public=True,
-    permission_classes=[permissions.AllowAny,],
+    permission_classes=[
+        permissions.AllowAny,
+    ],
 )
 
 router = routers.SimpleRouter()
-router.register(r'users', UserViewSet, basename='users')
-router.register(r'tasks', TaskViewSet, basename='tasks')
-router.register(r'tags', TagViewSet, basename='tags')
+router.register(r"users", UserViewSet, basename="users")
+router.register(r"tasks", TaskViewSet, basename="tasks")
+router.register(r"tags", TagViewSet, basename="tags")
 
 urlpatterns = [
     path("admin/", task_manager_admin_site.urls),
     path("api-auth/", include("rest_framework.urls")),
-    path('api/', include(router.urls)),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    path("api/", include(router.urls)),
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
 ]
