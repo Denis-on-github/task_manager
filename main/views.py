@@ -1,10 +1,11 @@
 import django_filters
+
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from main.models import User, Tag, Task
+from main.models import Tag, Task, User
 from main.permissions import IsStaffOrReadOnly
-from main.serializers import UserSerializer, TagSerializer, TaskSerializer
+from main.serializers import TagSerializer, TaskSerializer, UserSerializer
 
 
 class UserFilter(django_filters.FilterSet):
@@ -33,14 +34,10 @@ class TaskFilter(django_filters.FilterSet):
         field_name="tags__id", to_field_name="id", queryset=Tag.objects.all()
     )
     executor = django_filters.ModelChoiceFilter(
-        field_name="executor__id",
-        to_field_name="id",
-        queryset=User.objects.all()
+        field_name="executor__id", to_field_name="id", queryset=User.objects.all()
     )
     author = django_filters.ModelChoiceFilter(
-        field_name="author__id",
-        to_field_name="id",
-        queryset=User.objects.all()
+        field_name="author__id", to_field_name="id", queryset=User.objects.all()
     )
 
     class Meta:

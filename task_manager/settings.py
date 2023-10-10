@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 import os
-from contextlib import suppress
+
 from pathlib import Path
 
 
@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     "main",
     "rest_framework",
     "django_filters",
-    'rest_access_policy'
+    "rest_access_policy",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -64,8 +65,8 @@ REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
     # or allow read-only access for unauthenticated users.
     "DEFAULT_PERMISSION_CLASSES": [
-        'main.permissions.IsStaffOrReadOnly',
-        "rest_framework.permissions.IsAuthenticated"
+        "main.permissions.IsStaffOrReadOnly",
+        "rest_framework.permissions.IsAuthenticated",
     ],
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",

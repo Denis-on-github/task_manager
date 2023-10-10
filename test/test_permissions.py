@@ -1,9 +1,10 @@
 import pytest
-from django.urls import reverse
+
+from factory import Factory, Faker, SubFactory
 from rest_framework import status
 from rest_framework.test import APITestCase
-from factory import Factory, Faker, SubFactory
-from main.models import Task, Tag, User
+
+from main.models import Tag, Task, User
 
 
 class UserFactory(Factory):
