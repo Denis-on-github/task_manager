@@ -1,13 +1,12 @@
-import os
 from datetime import datetime, timedelta, timezone
 from http import HTTPStatus
-from typing import Type, Container
+from typing import Container, Type
 
 from django.db import models
 from django.urls import reverse
 from rest_framework.test import APIClient, APITestCase
 
-from main.models import *
+from main.models import Tag, Task, User
 
 
 class TestAdmin(APITestCase):

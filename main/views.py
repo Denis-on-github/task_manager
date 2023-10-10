@@ -1,10 +1,11 @@
 import django_filters
+
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 
-from main.models import User, Tag, Task
+from main.models import Tag, Task, User
 from main.permissions import IsStaffOrReadOnly
-from main.serializers import UserSerializer, TagSerializer, TaskSerializer
+from main.serializers import TagSerializer, TaskSerializer, UserSerializer
 
 
 class UserFilter(django_filters.FilterSet):

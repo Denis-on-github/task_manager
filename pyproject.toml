@@ -5,7 +5,7 @@
 
 [tool.flake8]
 
-exclude = 'venv, .eggs, .git, .hg, .mypy_cache, .tox, .venv, _build, buck-out, build, dist, foo.py, tests'
+exclude = 'venv, .eggs, .git, .hg, .mypy_cache, .tox, .venv, _build, buck-out, build, dist, foo.py, tests, migrations'
 
 max-line-length = 120
 max-complexity = 10
