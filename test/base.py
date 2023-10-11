@@ -17,18 +17,18 @@ class TestViewSetBase(APITestCase):
     def setUpTestData(cls) -> None:
         super().setUpTestData()
         cls.user = cls.create_api_user()
-        print(f'=== Tester (admin) created: {cls.user} ===')
+        print(f"=== Tester (admin) created: {cls.user} ===")
         cls.client = APIClient()
 
     @staticmethod
     def create_api_user():
         user_attributes = {
-            'username': 'g_tester',
-            'first_name': 'Good',
-            'last_name': 'Tester',
-            'email': 'tester@good-tests.com',
-            'role': User.Roles.ADMIN.value,
-            'is_staff': True
+            "username": "g_tester",
+            "first_name": "Good",
+            "last_name": "Tester",
+            "email": "tester@good-tests.com",
+            "role": User.Roles.ADMIN.value,
+            "is_staff": True,
         }
         user = User.objects.create(**user_attributes)
         return user
