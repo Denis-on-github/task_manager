@@ -1,4 +1,5 @@
 from base import TestViewSetBase
+
 from main.models import User
 
 
@@ -100,7 +101,7 @@ class TestUserViewSet(TestViewSetBase):
         )
 
     def test_username_filter(self):
-        first_user = self.create(
+        self.create(
             {
                 "first_name": "John",
                 "last_name": "Doe",
@@ -108,7 +109,7 @@ class TestUserViewSet(TestViewSetBase):
                 "email": "john@test.com",
             }
         )
-        second_user = self.create(
+        self.create(
             {
                 "first_name": "Jane",
                 "last_name": "Black",
@@ -116,7 +117,7 @@ class TestUserViewSet(TestViewSetBase):
                 "email": "jane@test.com",
             }
         )
-        third_user = self.create(
+        self.create(
             {
                 "first_name": "Alice",
                 "last_name": "Smith",
