@@ -1,10 +1,10 @@
 from http import HTTPStatus
-from typing import Union, List, Optional
+from typing import List, Optional, Union
 
 from rest_framework.reverse import reverse
+from rest_framework.test import APIClient, APITestCase
 
 from main.models.user import User
-from rest_framework.test import APIClient, APITestCase
 
 
 class TestViewSetBase(APITestCase):
