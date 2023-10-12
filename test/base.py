@@ -33,11 +33,6 @@ class TestViewSetBase(APITestCase):
         user = User.objects.create(**user_attributes)
         return user
 
-    # @classmethod
-    # def setUp(cls) -> None:
-    #     super().setUp()
-    #     cls.client.force_login(cls.user)
-
     @classmethod
     def detail_url(cls, key: Union[int, str]) -> str:
         return reverse(f"{cls.basename}-detail", args=[key])
