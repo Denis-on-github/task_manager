@@ -1,1 +1,1 @@
-init master
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FDenis-on-github%2Ftask_manager%2Fbadge%3Fref%3Ddevelop&style=flat)](https://actions-badge.atrox.dev/Denis-on-github/task_manager/goto?ref=develop)
