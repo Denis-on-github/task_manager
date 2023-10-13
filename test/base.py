@@ -5,10 +5,12 @@ from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
 from main.models.user import User
+from model_factories import UserFactory
 
 
 class TestViewSetBase(APITestCase):
     user: User = None
+    token_url = reverse("token_obtain_pair")
     client: APIClient = None
     basename: str
     user_attributes: dict
@@ -17,8 +19,11 @@ class TestViewSetBase(APITestCase):
     def setUpTestData(cls) -> None:
         super().setUpTestData()
         cls.user = cls.create_api_user()
-        print(f"=== Tester (admin) created: {cls.user} ===")
         cls.client = APIClient()
+
+    def token_request(self, username: str = None, password: str = "password"):
+        response = self.client.post(self.token_url, data={"username": username, "password": password})
+        return response
 
     @staticmethod
     def create_api_user():
@@ -29,8 +34,10 @@ class TestViewSetBase(APITestCase):
             "email": "tester@good-tests.com",
             "role": User.Roles.ADMIN.value,
             "is_staff": True,
+            'is_active': True
         }
-        user = User.objects.create(**user_attributes)
+        user = UserFactory.create(**user_attributes)
+        user.save()
         return user
 
     @classmethod
@@ -42,30 +49,41 @@ class TestViewSetBase(APITestCase):
         return reverse(f"{cls.basename}-list", args=args)
 
     def create(self, data: dict, args: List[Union[str, int]] = None) -> dict:
-        self.client.force_login(self.user)
+        response = self.token_request(username="g_tester")
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.client.post(self.list_url(args), data=data)
         assert response.status_code == HTTPStatus.CREATED, response.content
         return response.data
 
     def list(self, filters: Optional[dict] = None) -> List[dict]:
-        self.client.force_login(self.user)
+        response = self.token_request(username="g_tester")
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.client.get(self.list_url(), data=filters)
         assert response.status_code == HTTPStatus.OK, response.content
         return response.data
 
     def retrieve(self, pk: Union[str, int]) -> dict:
-        self.client.force_login(self.user)
+        response = self.token_request(username="g_tester")
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.client.get(self.detail_url(pk))
         assert response.status_code == HTTPStatus.OK, response.content
         return response.data
 
     def update(self, pk: Union[str, int], data: dict) -> dict:
-        self.client.force_login(self.user)
+        response = self.token_request(username="g_tester")
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.client.put(self.detail_url(pk), data=data)
         assert response.status_code == HTTPStatus.OK, response.content
         return response.data
 
     def delete(self, pk: Union[str, int]) -> None:
-        # self.client.force_login(self.user)
         response = self.client.delete(self.detail_url(pk))
         assert response.status_code == HTTPStatus.NO_CONTENT, response.content
