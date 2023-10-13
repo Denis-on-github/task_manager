@@ -1,37 +1,9 @@
 import pytest
 
-from factory import Factory, Faker, SubFactory
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from main.models import Tag, Task, User
-
-
-class UserFactory(Factory):
-    class Meta:
-        model = User
-
-    last_name = Faker("last_name")
-    first_name = Faker("first_name")
-    email = Faker("email")
-    password = Faker("password")
-
-
-class TagFactory(Factory):
-    class Meta:
-        model = Tag
-
-    title = Faker("word")
-
-
-class TaskFactory(Factory):
-    class Meta:
-        model = Task
-
-    title = Faker("sentence")
-    description = Faker("paragraph")
-    author = SubFactory(UserFactory)
-    executor = SubFactory(UserFactory)
+from model_factories import TagFactory, UserFactory, TaskFactory
 
 
 class TestPermissions(APITestCase):
