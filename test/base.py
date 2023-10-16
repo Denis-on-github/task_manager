@@ -33,11 +33,6 @@ class TestViewSetBase(APITestCase):
         user = User.objects.create(**user_attributes)
         return user
 
-    # @classmethod
-    # def setUp(cls) -> None:
-    #     super().setUp()
-    #     cls.client.force_login(cls.user)
-
     @classmethod
     def detail_url(cls, key: Union[int, str]) -> str:
         return reverse(f"{cls.basename}-detail", args=[key])
@@ -71,6 +66,5 @@ class TestViewSetBase(APITestCase):
         return response.data
 
     def delete(self, pk: Union[str, int]) -> None:
-        # self.client.force_login(self.user)
         response = self.client.delete(self.detail_url(pk))
         assert response.status_code == HTTPStatus.NO_CONTENT, response.content
