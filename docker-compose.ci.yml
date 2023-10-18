@@ -13,7 +13,7 @@ x-db-config: &db-config
   POSTGRES_PASSWORD: pgpassword
 
 services:
-  api:
+  task_manager_api:
     image: userapp_api
     build:
       context: .github/workflows
