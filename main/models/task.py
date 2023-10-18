@@ -1,7 +1,7 @@
 from django.db import models
 
-from main.models import User
 from main.models.tag import Tag
+from main.models.user import User
 
 
 class Task(models.Model):
