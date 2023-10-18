@@ -17,7 +17,6 @@
       image: userapp_api
       build:
         context: .
-        dockerfile: ../../Dockerfile
       environment:
         <<: *app-config
         <<: *db-config
