@@ -20,6 +20,7 @@
         dockerfile: ../../Dockerfile
       environment:
         <<: *app-config
+        <<: *db-config
       depends_on:
         - task_manager_db
       ports:
