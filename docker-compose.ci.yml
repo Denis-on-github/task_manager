@@ -1,40 +1,38 @@
-version: "3.7"
+  version: "3.7"
 
-x-app-config: &app-config
-  DJANGO_ENV: dev
-  DJANGO_SECRET_KEY: dev
+  x-app-config: &app-config
+    DJANGO_ENV: dev
+    DJANGO_SECRET_KEY: dev
 
-x-db-config: &db-config
-  DATABASE_NAME: task_manager
-  DATABASE_USER: admin
-  DATABASE_PASSWORD: admin
-  DATABASE_HOST: task_manager_db
-  DATABASE_PORT: 5432
-  POSTGRES_PASSWORD: admin
+  x-db-config: &db-config
+    DATABASE_NAME: task_manager
+    DATABASE_USER: admin
+    DATABASE_PASSWORD: admin
+    DATABASE_HOST: task_manager_db
+    DATABASE_PORT: 5432
+    POSTGRES_PASSWORD: admin
 
-services:
-  task_manager_api:
-    image: userapp_api
-    build:
-      context: .github/workflows
-      target: base
-    environment:
-      <<: *app-config
-      <<: *db-config
-    depends_on:
-      - task_manager_db
-    ports:
-      - "8000:8000"
-    stdin_open: true
-    tty: true
+  services:
+    task_manager_api:
+      image: userapp_api
+      build:
+        context: .
+      environment:
+        <<: *app-config
+      depends_on:
+        - task_manager_db
+      ports:
+        - "8000:8000"
+      stdin_open: true
+      tty: true
 
-  task_manager_db:
-    image: postgres:12.5-alpine
-    environment: *db-config
-    logging:
-      driver: none
-    ports:
-      - "5432:5432"
+    task_manager_db:
+      image: postgres:12.5-alpine
+      environment: *db-config
+      logging:
+        driver: none
+      ports:
+        - "5432:5432"
 
-volumes:
-  sqlvolume:
+  volumes:
+    sqlvolume:
