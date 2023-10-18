@@ -17,6 +17,7 @@
       image: userapp_api
       build:
         context: .github/workflows
+        dockerfile: ../../Dockerfile
       environment:
         <<: *app-config
         <<: *db-config
