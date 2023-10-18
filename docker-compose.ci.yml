@@ -16,7 +16,7 @@
     task_manager_api:
       image: userapp_api
       build:
-        context: .
+        context: .github/workflows
       environment:
         <<: *app-config
         <<: *db-config
