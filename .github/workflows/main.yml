@@ -6,7 +6,7 @@ on:
       - 'develop'
   push:
     branches:
-      - 'develop'
+      - 'feature/caveralls'
 
 jobs:
   build:
