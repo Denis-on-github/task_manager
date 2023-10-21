@@ -433,13 +433,13 @@ doc = ["Sphinx", "sphinx-rtd-theme", "sphinxcontrib-spelling"]
 
 [[package]]
 name = "faker"
-version = "19.10.0"
+version = "19.11.0"
 description = "Faker is a Python package that generates fake data for you."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "Faker-19.10.0-py3-none-any.whl", hash = "sha256:f321e657ed61616fbfe14dbb9ccc6b2e8282652bbcfcb503c1bd0231ff834df6"},
-    {file = "Faker-19.10.0.tar.gz", hash = "sha256:63da90512d0cb3acdb71bd833bb3071cb8a196020d08b8567a01d232954f1820"},
+    {file = "Faker-19.11.0-py3-none-any.whl", hash = "sha256:e28090068293c5a83e7f4d636417d45fae1031ca8a8136cc2415549ebc2111e2"},
+    {file = "Faker-19.11.0.tar.gz", hash = "sha256:a62a3fd3bfa3122d4f57dfa26a1cc37d76751a76c8ddd63cf9d24078c57913a4"},
 ]
 
 [package.dependencies]
@@ -828,6 +828,21 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)"]
 use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
+name = "rollbar"
+version = "0.16.3"
+description = "Easy and powerful exception tracking with Rollbar. Send messages and exceptions with arbitrary context, get back aggregates, and debug production issues quickly."
+optional = false
+python-versions = "*"
+files = [
+    {file = "rollbar-0.16.3-py3-none-any.whl", hash = "sha256:f06e23b36d7d1b547f32f287da9367b9bf53319f611da0ec9e891859507ac94e"},
+    {file = "rollbar-0.16.3.tar.gz", hash = "sha256:02313dfc60710ec736ab033d0f8c969d857a8b991cd67e0c1a91620e8a04ede2"},
+]
+
+[package.dependencies]
+requests = {version = ">=0.12.1", markers = "python_version >= \"3.6\""}
+six = ">=1.9.0"
+
+[[package]]
 name = "six"
 version = "1.16.0"
 description = "Python 2 and 3 compatibility utilities"
@@ -918,4 +933,4 @@ zstd = ["zstandard (>=0.18.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "cd67926c0bbf5493c4131c1e834fcc9872f264affe911a4ffacaa2066094a557"
+content-hash = "9128f19f21758adafc1962f83281228ae73204947cca95163a67f5753a29e389"
