@@ -9,3 +9,4 @@ venv
 tests
 .pytest_cache
 test/try
+newrelic.ini
