@@ -26,8 +26,8 @@ class TestUserViewSet(TestViewSetBase):
         assert self.test_user == expected_response
 
     def test_list(self):
-        expected_response = self.expected_details(self.test_user, self.user_attributes)
         user_list = self.list()
+        expected_response = self.expected_details(self.test_user, self.user_attributes)
         assert expected_response in user_list
 
     def test_retrieve(self):
@@ -49,13 +49,9 @@ class TestUserViewSet(TestViewSetBase):
 
     def test_delete(self):
         self.delete(self.test_user["id"])
-        try:
-            self.retrieve(self.test_user["id"])
-        except AssertionError as err:
-            if "Not found" in str(err):
-                pass
-            else:
-                raise AssertionError(f"Unexpected error message: {err}")
+        user_list = self.list()
+        assert self.test_user['id'] not in user_list
+
 
     def test_username_filter(self):
         self.create(
