@@ -45,4 +45,7 @@ ENV DJANGO_SETTINGS_MODULE="task_manager.settings"
 
 EXPOSE 8000
 
-CMD python manage.py runserver 0.0.0.0:8000
+COPY run_server.sh /app/run_server.sh
+RUN chmod +x /app/run_server.sh
+
+CMD ["/app/run_server.sh"]
