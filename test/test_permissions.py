@@ -1,28 +1,34 @@
 import pytest
 
 from rest_framework import status
+from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
 
 from model_factories import TagFactory, UserFactory, TaskFactory
 
 
 class TestPermissions(APITestCase):
+    token_url = reverse("token_obtain_pair")
+
+    def token_request(self, username: str = None, password: str = "password"):
+        response = self.client.post(self.token_url, data={"username": username, "password": password})
+        return response
+
     @pytest.mark.django_db
     def test_user_cannot_delete_task(self):
         tag = TagFactory.create()
         tag.save()
-        print(f"\n=== Tag for task created: {tag} ===")
 
         user = UserFactory()
         user.save()
-        print(f"\n=== User for task created: {user} ===")
 
         task = TaskFactory.create(author=user, executor=user)
         task.save()
         task.tags.set([tag])
-        print(f"\n=== Task created: {task} ===")
 
-        self.client.force_login(user)
+        response = self.token_request(username=user.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
         response = self.client.delete(f"/api/tasks/{task.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN
@@ -31,13 +37,13 @@ class TestPermissions(APITestCase):
     def test_user_cannot_delete_tag(self):
         tag = TagFactory.create()
         tag.save()
-        print(f"\n=== Tag created: {tag} ===")
 
         user = UserFactory()
         user.save()
-        print(f"\n=== User created: {user} ===")
 
-        self.client.force_login(user)
+        response = self.token_request(username=user.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
         response = self.client.delete(f"/api/tags/{tag.id}/")
         assert response.status_code == status.HTTP_403_FORBIDDEN, response.content
@@ -46,18 +52,17 @@ class TestPermissions(APITestCase):
     def test_admin_can_delete_task(self):
         tag = TagFactory.create()
         tag.save()
-        print(f"\n=== Tag for task created: {tag} ===")
 
         admin = UserFactory(is_staff=True)
         admin.save()
-        print(f"\n=== Admin for task created: {admin} ===")
 
         task = TaskFactory.create(author=admin, executor=admin)
         task.save()
         task.tags.set([tag])
-        print(f"\n=== Task created: {task} ===")
 
-        self.client.force_login(admin)
+        response = self.token_request(username=admin.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
         response = self.client.delete(f"/api/tasks/{task.id}/")
         assert response.status_code == status.HTTP_204_NO_CONTENT
@@ -66,13 +71,13 @@ class TestPermissions(APITestCase):
     def test_admin_can_delete_tag(self):
         tag = TagFactory.create()
         tag.save()
-        print(f"\n=== Tag created: {tag} ===")
 
         admin = UserFactory(is_staff=True)
         admin.save()
-        print(f"\n=== Admin for task created: {admin} ===")
 
-        self.client.force_login(admin)
+        response = self.token_request(username=admin.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
         response = self.client.delete(f"/api/tags/{tag.id}/")
         assert response.status_code == status.HTTP_204_NO_CONTENT

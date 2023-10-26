@@ -52,11 +52,8 @@ class TestUserViewSet(TestViewSetBase):
         user_list = self.list()
         assert self.test_user['id'] not in user_list
 
+
     def test_username_filter(self):
-        print(
-            "-------------------------------------------------------------------------------------------------------"
-        )
-        print("TEST_USERNAME_FILTER")
         self.create(
             {
                 "first_name": "John",
@@ -90,6 +87,3 @@ class TestUserViewSet(TestViewSetBase):
 
         users_list = self.list(filters={"username": "john_doe"})
         assert len(users_list) == 0
-        print(
-            "-------------------------------------------------------------------------------------------------------"
-        )
