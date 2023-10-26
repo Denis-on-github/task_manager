@@ -66,6 +66,5 @@ class TestViewSetBase(APITestCase):
         return response.data
 
     def delete(self, pk: Union[str, int]) -> None:
-        # self.client.force_login(self.user)
         response = self.client.delete(self.detail_url(pk))
         assert response.status_code == HTTPStatus.NO_CONTENT, response.content
