@@ -23,7 +23,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from main.admin import task_manager_admin_site
 from main.views import TagViewSet, TaskViewSet, UserViewSet
-from test.test_rollbar import index
+
 
 schema_view = get_schema_view(
     openapi.Info(
