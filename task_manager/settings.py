@@ -27,7 +27,8 @@ INSTALLED_APPS = [
     "rest_access_policy",
     "drf_yasg",
     "rest_framework_simplejwt",
-    'rollbar.contrib.django'
+    'rollbar.contrib.django',
+    'services'
 ]
 
 MIDDLEWARE = [
