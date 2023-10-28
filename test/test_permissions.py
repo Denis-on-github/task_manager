@@ -11,7 +11,9 @@ class TestPermissions(APITestCase):
     token_url = reverse("token_obtain_pair")
 
     def token_request(self, username: str = None, password: str = "password"):
-        response = self.client.post(self.token_url, data={"username": username, "password": password})
+        response = self.client.post(
+            self.token_url, data={"username": username, "password": password}
+        )
         return response
 
     @pytest.mark.django_db

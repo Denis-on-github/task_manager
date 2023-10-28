@@ -18,12 +18,14 @@ def send_assign_notification(task_id: int) -> None:
     )
 
 
-def send_html_email(subject: str,
-                    template: str,
-                    context: dict,
-                    recipients: list[str],
-                    message: Optional[str] = "",
-                    from_email: Optional[str] = DEFAULT_FROM_EMAIL) -> None:
+def send_html_email(
+    subject: str,
+    template: str,
+    context: dict,
+    recipients: list[str],
+    message: Optional[str] = "",
+    from_email: Optional[str] = DEFAULT_FROM_EMAIL,
+) -> None:
     html_message = render_to_string(f"main/emails/{template}", context)
     return mail.send_mail(
         subject=subject,

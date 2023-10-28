@@ -22,7 +22,9 @@ class TestViewSetBase(APITestCase):
         cls.client = APIClient()
 
     def token_request(self, username: str = None, password: str = "password"):
-        response = self.client.post(self.token_url, data={"username": username, "password": password})
+        response = self.client.post(
+            self.token_url, data={"username": username, "password": password}
+        )
         return response
 
     @staticmethod
@@ -34,7 +36,7 @@ class TestViewSetBase(APITestCase):
             "email": "tester@good-tests.com",
             "role": User.Roles.ADMIN.value,
             "is_staff": True,
-            'is_active': True
+            "is_active": True,
         }
         user = UserFactory.create(**user_attributes)
         user.save()
