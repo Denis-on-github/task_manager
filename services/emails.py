@@ -9,7 +9,7 @@ from task_manager.settings import DEFAULT_FROM_EMAIL
 
 def send_assign_notification(task_id: int) -> None:
     task = Task.objects.get(pk=task_id)
-    assignee = task.assignee
+    assignee = task.author
     send_html_email(
         subject="You've assigned a task.",
         template="notification.html",
@@ -26,7 +26,7 @@ def send_html_email(
     message: Optional[str] = "",
     from_email: Optional[str] = DEFAULT_FROM_EMAIL,
 ) -> None:
-    html_message = render_to_string(f"main/emails/{template}", context)
+    html_message = render_to_string(f"emails/{template}", context)
     return mail.send_mail(
         subject=subject,
         message=message,
