@@ -43,6 +43,7 @@ coverage = "6.5.0"
 coveralls = "^3.3.1"
 pytest-cov = "^4.1.0"
 rollbar = "^0.16.3"
+newrelic = "^9.1.1"
 
 [tool.poetry.dev-dependencies]
 
