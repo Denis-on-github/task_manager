@@ -1,0 +1,8 @@
+[run]
+source = task_manager/
+
+[report]
+omit =
+    */migrations/*
+    manage.py
+    task_manager/settings.py
