@@ -21,6 +21,8 @@ services:
       DATABASE_HOST: task_manager_db
       DATABASE_PORT: 5432
       ROLLBAR_TOKEN: 2b48b4cbb1534673a6ec8361e2bf5e81
+      EMAIL_HOST_USER: write.to.denis.today@gmail.com
+      EMAIL_HOST_PASSWORD: jxaplcztxowhevpz
     command: python manage.py runserver 0.0.0.0:8000
 
   task_manager_db:

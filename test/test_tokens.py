@@ -1,4 +1,3 @@
-import json
 from datetime import timedelta
 
 from freezegun.api import freeze_time
@@ -23,7 +22,9 @@ class TestJWTAuth(APITestCase):
         client = self.client_class()
         if not username:
             username = self.create_user().username
-        response = client.post(self.token_url, data={"username": username, "password": password})
+        response = client.post(
+            self.token_url, data={"username": username, "password": password}
+        )
         return response
 
     def refresh_token_request(self, refresh_token: str):
