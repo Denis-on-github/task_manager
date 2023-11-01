@@ -92,6 +92,21 @@ ROLLBAR = {
     "root": BASE_DIR,
 }
 
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+    PUBLIC_FILE_STORAGE = "core.storage_backends.S3PublicStorage"
+    AWS_QUERYSTRING_EXPIRE = 10 * 60
+    AWS_QUERYSTRING_AUTH = True
+    AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+    AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+    AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
+    AWS_S3_REGION_NAME = os.environ["AWS_REGION_NAME"]
+    AWS_DEFAULT_ACL = "private"
+else:
+    DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+    MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
+    MEDIA_URL = "/media/"
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
