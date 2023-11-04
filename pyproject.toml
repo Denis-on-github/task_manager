@@ -47,6 +47,7 @@ newrelic = "^9.1.1"
 django-storages = "^1.14.2"
 boto3 = "^1.28.75"
 pillow = "^10.1.0"
+drf-extensions = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
 
