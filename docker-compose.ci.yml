@@ -5,6 +5,7 @@ x-app-config: &app-config
   DJANGO_SECRET_KEY: secret_key
   ROLLBAR_TOKEN: $ROLLBAR_TOKEN
   EMAIL_HOST_USER: write.to.denis.today@gmail.com
+  EMAIL_HOST_PASSWORD: $SMTP_PASSWORD
 
 x-db-config: &db-config
   DATABASE_NAME: postgres
