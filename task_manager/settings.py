@@ -107,6 +107,10 @@ else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
     MEDIA_URL = "/media/"
 
+UPLOAD_MAX_SIZES: dict[str, int] = {
+    "avatar_picture": 1 * 1024 * 1024,
+}
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
