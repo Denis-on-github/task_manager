@@ -1,6 +1,7 @@
 from http import HTTPStatus
 from typing import List, Optional, Union
 
+from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.test import APIClient, APITestCase
 
@@ -93,3 +94,20 @@ class TestViewSetBase(APITestCase):
     def delete(self, pk: Union[str, int]) -> None:
         response = self.client.delete(self.detail_url(pk))
         assert response.status_code == HTTPStatus.NO_CONTENT, response.content
+
+    def request_single_resource(self, data: dict = None) -> Response:
+        return self.client.get(self.list_url(), data=data)
+
+    def single_resource(self, data: dict = None) -> dict:
+        response = self.request_single_resource(data)
+        assert response.status_code == HTTPStatus.OK
+        return response.data
+
+    def request_patch_single_resource(self, attributes: dict) -> Response:
+        url = self.list_url()
+        return self.client.patch(url, data=attributes)
+
+    def patch_single_resource(self, attributes: dict) -> dict:
+        response = self.request_patch_single_resource(attributes)
+        assert response.status_code == HTTPStatus.OK, response.content
+        return response.data
