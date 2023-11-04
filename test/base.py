@@ -99,6 +99,10 @@ class TestViewSetBase(APITestCase):
         return self.client.get(self.list_url(), data=data)
 
     def single_resource(self, data: dict = None) -> dict:
+        response = self.token_request(username=self.user.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.request_single_resource(data)
         assert response.status_code == HTTPStatus.OK
         return response.data
@@ -108,6 +112,10 @@ class TestViewSetBase(APITestCase):
         return self.client.patch(url, data=attributes)
 
     def patch_single_resource(self, attributes: dict) -> dict:
+        response = self.token_request(username=self.user.username)
+        token = response.json()["access"]
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
+
         response = self.request_patch_single_resource(attributes)
         assert response.status_code == HTTPStatus.OK, response.content
         return response.data
