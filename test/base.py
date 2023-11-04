@@ -59,6 +59,10 @@ class TestViewSetBase(APITestCase):
         assert response.status_code == HTTPStatus.CREATED, response.content
         return response.data
 
+    def request_create(self, user_data: dict, args: List[Union[str, int]] = None) -> dict:
+        response = self.client.post(self.list_url(args), data=user_data)
+        return response
+
     def list(self, filters: Optional[dict] = None) -> List[dict]:
         response = self.token_request(username=self.user.username)
         token = response.json()["access"]
