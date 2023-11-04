@@ -50,17 +50,17 @@ class TestViewSetBase(APITestCase):
     def list_url(cls, args: List[Union[str, int]] = None) -> str:
         return reverse(f"{cls.basename}-list", args=args)
 
-    def create(self, data: dict, args: List[Union[str, int]] = None) -> dict:
-        response = self.token_request(username="g_tester")
+    def create(self, user_data: dict, args: List[Union[str, int]] = None) -> dict:
+        response = self.token_request(username=self.user.username)
         token = response.json()["access"]
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
-        response = self.client.post(self.list_url(args), data=data)
+        response = self.client.post(self.list_url(args), data=user_data)
         assert response.status_code == HTTPStatus.CREATED, response.content
         return response.data
 
     def list(self, filters: Optional[dict] = None) -> List[dict]:
-        response = self.token_request(username="g_tester")
+        response = self.token_request(username=self.user.username)
         token = response.json()["access"]
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
@@ -69,7 +69,7 @@ class TestViewSetBase(APITestCase):
         return response.data
 
     def retrieve(self, pk: Union[str, int]) -> dict:
-        response = self.token_request(username="g_tester")
+        response = self.token_request(username=self.user.username)
         token = response.json()["access"]
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
@@ -78,7 +78,7 @@ class TestViewSetBase(APITestCase):
         return response.data
 
     def update(self, pk: Union[str, int], data: dict) -> dict:
-        response = self.token_request(username="g_tester")
+        response = self.token_request(username=self.user.username)
         token = response.json()["access"]
         self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
