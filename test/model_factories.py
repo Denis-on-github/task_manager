@@ -2,6 +2,19 @@ from factory import Faker, SubFactory, PostGenerationMethodCall
 from factory.django import DjangoModelFactory
 
 from main.models import Tag, Task, User
+from django.core.files.uploadedfile import SimpleUploadedFile
+from faker.providers import BaseProvider
+
+
+class ImageFileProvider(BaseProvider):
+    def image_file(self, fmt: str = "jpeg") -> SimpleUploadedFile:
+        return SimpleUploadedFile(
+            self.generator.file_name(extension=fmt),
+            self.generator.image(image_format=fmt),
+        )
+
+
+Faker.add_provider(ImageFileProvider)
 
 
 class UserFactory(DjangoModelFactory):
@@ -14,6 +27,7 @@ class UserFactory(DjangoModelFactory):
     username = Faker("user_name")
     email = Faker("email")
     password = PostGenerationMethodCall("set_password", "password")
+    avatar_picture = Faker("image_file", fmt="jpeg")
 
 
 class TagFactory(DjangoModelFactory):
