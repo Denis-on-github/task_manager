@@ -5,8 +5,8 @@ from rest_framework import permissions, routers
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from main.admin import task_manager_admin_site
-from main.views import TagViewSet, TaskViewSet, UserViewSet
-
+from main.views import TagViewSet, TaskViewSet, UserViewSet, CurrentUserViewSet
+from services.single_resource import BulkRouter
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -20,10 +20,11 @@ schema_view = get_schema_view(
     ],
 )
 
-router = routers.SimpleRouter()
+router = BulkRouter()
 router.register(r"users", UserViewSet, basename="users")
 router.register(r"tasks", TaskViewSet, basename="tasks")
 router.register(r"tags", TagViewSet, basename="tags")
+router.register(r"current-user", CurrentUserViewSet, basename="current_user")
 
 urlpatterns = [
     path("admin/", task_manager_admin_site.urls),
